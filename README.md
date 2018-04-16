@@ -1,6 +1,6 @@
 # BAMS
 
-> A GDC(Vision Direct Marketing Global Data Center) Module. Made for Using Real-Time GDC App
+> BAMS is a VDM[Vision Direct Marketing] Inhouse Developed Web-Application with embeded Real-Time Technologies.
 
 
 ## Build Setup
