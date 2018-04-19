@@ -71,8 +71,8 @@ export const store = new Vuex.Store({
     // Data Fields
     // Also Change this in Store Detail Enum Page4
     basicInfoFields: [
-      {id: 0, tabIndex: 1, title: 'Store Name' , variable: 'storeName', size: 'xs6', type: 'text'},
-      {id: 1, tabIndex: 2,title: 'Keeper Name', variable: 'keeperName', type: 'text'},
+      {id: 0, tabIndex: 1, title: 'Customer Name' , variable: 'customerName', size: 'xs6', type: 'text'},
+      {id: 1, tabIndex: 2,title: 'Customer Contact', variable: 'customerContact', type: 'text'},
       {id: 2, tabIndex: 3,title: 'Contact Number', variable: 'contactNumber', type: 'number'},
     ],
     stockFields: [
@@ -237,7 +237,7 @@ export const store = new Vuex.Store({
       // Setting Loading
       commit('SET_MAIN_LOADING', true);
       // setting user information
-      firebase.database().ref('supervisors').orderByChild('uniqueId').equalTo(getters.user.uid).once('value', (user) => {
+      firebase.database().ref('users').orderByChild('uniqueId').equalTo(getters.user.uid).once('value', (user) => {
         let userinfo = {};
         const obj = user.val();
         for (let key in obj) {
@@ -245,7 +245,7 @@ export const store = new Vuex.Store({
             uid: obj[key].uniqueId,
             name: obj[key].name,
             email: obj[key].email,
-            stores : obj[key].stores,
+            store : obj[key].store,
             address: obj[key].address,
             shift: obj[key].shift,
             dateAssigned: obj[key].dateAssigned,
@@ -254,17 +254,20 @@ export const store = new Vuex.Store({
           };
         }
         commit('setUserInfo', userinfo);
-        if(getters.userInfo.role === "Supervisor"){
-          // if user is supervisor then set mode to "SuperVisor"
-          commit('setMode', 'Supervisor');
-          // and color to Blue
-          commit('setTheme', 'blue accent-4');
-        }else if(getters.userInfo.role === "BrandAmbassador"){
-          // if user is B.A then set mode to "B.A"
-          commit('setMode', 'BrandAmbassador');
-          // and color to Red
-          commit('setTheme', 'red accent-4');
-        }
+
+        // This is for Changing Colors
+
+        // if(getters.userInfo.role === "Supervisor"){
+        //   // if user is supervisor then set mode to "SuperVisor"
+        //   commit('setMode', 'Supervisor');
+        //   // and color to Blue
+        //   commit('setTheme', 'blue accent-4');
+        // }else if(getters.userInfo.role === "BrandAmbassador"){
+        //   // if user is B.A then set mode to "B.A"
+        //   commit('setMode', 'BrandAmbassador');
+        //   // and color to Red
+        //   commit('setTheme', 'red accent-4');
+        // }
         commit('SET_MAIN_LOADING', false);
       });
     },
