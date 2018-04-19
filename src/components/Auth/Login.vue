@@ -102,7 +102,6 @@ export default {
   input {
     text-transform: lowercase;
   }
-<<<<<<< HEAD
   h5 {
     font-weight: 100;
   }
