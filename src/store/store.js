@@ -81,7 +81,7 @@ export const store = new Vuex.Store({
       {id: 5, tabIndex: 6,title: 'Banner', variable: 'banner', type: 'number'},
     ],
     otherFields: [
-      {id: 6, tabIndex: 7,title: 'Nauruss', variable: 'naurus', type: 'number'},
+      {id: 6, tabIndex: 7,title: 'Naurus', variable: 'naurus', type: 'number'},
       {id: 7, tabIndex: 8,title: 'Rooh Afza', variable: 'roohAfza', type: 'number'},
       {id: 7, tabIndex: 9,title: 'Quice', variable: 'quice', type: 'number'},
       {id: 8, tabIndex: 10,title: 'Other Brands', variable: 'otherBrands', type: 'number'}

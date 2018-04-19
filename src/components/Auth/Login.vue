@@ -102,6 +102,7 @@ export default {
   input {
     text-transform: lowercase;
   }
+<<<<<<< HEAD
   h5 {
     font-weight: 100;
   }
@@ -124,5 +125,8 @@ export default {
   @-webkit-keyframes slide {
     from { background-position: 0 0; }
     to { background-position: -75em 0; }
+  }
+  .bordered {
+    border: 4px solid #eee;
   }
 </style>

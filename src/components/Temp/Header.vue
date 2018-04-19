@@ -52,7 +52,11 @@
       <!--<v-btn color="primary" dark slot="activator">Open Dialog</v-btn>-->
       <v-card dark>
         <v-card-title class="headline">Please Wait </v-card-title>
+<<<<<<< HEAD
         <v-card-text>It will take a while</v-card-text>
+=======
+        <v-card-text>if this query taking more than 30 seconds contact VDM.</v-card-text>
+>>>>>>> 3f93be082ceddb558e8bf6b05336c2489ccb4bd3
         <v-container>
           <v-layout row wrap center>
             <v-flex xs2 offset-xs5>

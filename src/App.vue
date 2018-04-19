@@ -43,6 +43,10 @@
   import StoreList from './components/AppMain/StoreList.vue'
   import StoreDetail from './components/AppMain/StoreDetail.vue'
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3f93be082ceddb558e8bf6b05336c2489ccb4bd3
 export default {
   name: 'app',
   data() {
@@ -140,6 +144,7 @@ export default {
     font-family: 'Marvel', sans-serif;
     /*background: url("../static/img/bg/bg.jpg") left  fixed;*/
     background: #000428;  /* fallback for old browsers */
+<<<<<<< HEAD
     /*background: -webkit-linear-gradient(to top, #4791e0, #2f0046);  */
     /*background: linear-gradient(to top, #4791e0, #2f0046); */
     background-image: url("assets/BG.jpg"), -webkit-linear-gradient(to top, #4791e0, #2f0046);  /* Chrome 10-25, Safari 5.1-6 */
@@ -147,6 +152,10 @@ export default {
     background-repeat: repeat;
     -webkit-animation: slide 100s linear infinite;
     -webkit-animation-iteration-count: 60;
+=======
+    background: -webkit-linear-gradient(to top, #4791e0, #2f0046);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #4791e0, #2f0046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+>>>>>>> 3f93be082ceddb558e8bf6b05336c2489ccb4bd3
 
   }
   .gradientDialog{
@@ -166,8 +175,11 @@ export default {
   form {
     margin: 0px; padding: 0px; width: 100%;
   }
+<<<<<<< HEAD
   @-webkit-keyframes slide {
     from { background-position: 0 0; }
     to { background-position: -80em 0; }
   }
+=======
+>>>>>>> 3f93be082ceddb558e8bf6b05336c2489ccb4bd3
 </style>
