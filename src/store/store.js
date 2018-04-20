@@ -216,6 +216,7 @@ export const store = new Vuex.Store({
           userinfo = {
             uid: obj[key].uniqueId,
             name: obj[key].name,
+            lastName: obj[key].lastName,
             email: obj[key].email,
             store : obj[key].store,
             address: obj[key].address,
@@ -276,11 +277,8 @@ export const store = new Vuex.Store({
       };
       commit('setAppHeader', header);
     },
-
-
-  // ==================================
+  // =================================
     //Checking Connection
-
     connectionRef({commit}){
       let connection = firebase.database().ref('/.info/connected');
 
@@ -292,7 +290,6 @@ export const store = new Vuex.Store({
         }
       });
     },
-
     // Go Offline
     onNotification({commit}, payload){
       let Ntitle = payload.notification.title;
@@ -306,12 +303,8 @@ export const store = new Vuex.Store({
     },
     // Pushing DataBase
 
-    pushToFirebase(payload){
-      firebase.database().ref('storedata/' + payload.date + '/').push({ payload })
-    },
-
     // setting Store ID
-    setStoreId({dispatch , commit, getters}, payload){
+    setStoreId({ commit, getters}){
       // Getting Assigned BA
       // dispatch('baListUPD');
       console.log("Inside SetStore");
@@ -334,8 +327,6 @@ export const store = new Vuex.Store({
       commit('setAppHeader', storeData);
       commit('SET_SEL_STORE_ID', sel_store_id)
     },
-
-
     // Uploading Data
     pushStoreData({commit, getters}, payload){
       commit('SET_MAIN_LOADING', true);
@@ -404,9 +395,6 @@ export const store = new Vuex.Store({
           console.log(error)
         })
     },
-
-
-
     // Uploading Data
     pushStoreReport({commit, getters}, payload){
       commit('SET_MAIN_LOADING', true);
@@ -421,6 +409,12 @@ export const store = new Vuex.Store({
         purchased: payload.purchased,
         customerName: payload.customerName,
         customerContact: payload.customerContact,
+        pUButter: payload.pUButter,
+        pUCheese: payload.pUCheese,
+        pUFrozen: payload.pUFrozen,
+        customerGift: payload.customerGift,
+        tasteTrial: payload.tasteTrial,
+        conversion: payload.conversion,
         creatorId: getters.userInfo.uid,
         userName: getters.userInfo.name,
         store : {

@@ -1,12 +1,18 @@
 <template>
   <v-container fill-height fluid class="mb-2">
-    <!--Vuetify Circle Loader-->
-    <!--<v-flex xs12><v-progress-circular v-if="pageLoading" indeterminate v-bind:size="70" v-bind:width="2" color="red"></v-progress-circular></v-flex>-->
     <v-layout row wrap v-if="!pageLoading">
       <v-flex xs12 text-xs-center >
         <div v-if="!checkConnection" class="caption red ma-0 pa-0 white--text">DISCONNECTED</div>
         <div class="title ma-0 pa-0">{{ appInfo.brandName }}</div>
         <div class="caption ma-0 pa-0">DC Software</div>
+      </v-flex>
+      <!--Timing of Submittion-->
+      <v-flex xs12 text-xs-center >
+        <div class="title ma-0 pa-0">{{ currentTime }}</div>
+      </v-flex>
+      <!--Heading of Content-->
+      <v-flex xs12 text-xs-center >
+        <div class="subheading">{{ this.storeDetail[0].name }} - {{ baNames }}</div>
       </v-flex>
       <form @submit.prevent="onSubmitDetails">
       <!--Basic Information-->
@@ -39,15 +45,6 @@
             </v-list-tile>
           </v-list>
         </v-flex>
-
-      <!--Timing of Submittion-->
-      <v-flex xs12 text-xs-center >
-        <div class="title ma-0 pa-0">{{ currentTime }}</div>
-      </v-flex>
-        <!--Heading of Content-->
-      <v-flex xs12 text-xs-center >
-        <div class="subheading">SKU's PURCHASED</div>
-      </v-flex>
 
       <!--Customer's Entry-->
         <!--EMBORG Products-->
@@ -202,38 +199,11 @@
           <v-btn raised large color="green" :disabled="!formIsValid" dark type="submit"> SUBMIT REPORT <v-icon right>send</v-icon></v-btn>
         </v-flex><br>
       </form>
-      <!--Compressor Loading-->
-      <!--<v-dialog v-model="compressing" persistent >-->
-        <!--&lt;!&ndash;<v-btn color="primary" dark slot="activator">Open Dialog</v-btn>&ndash;&gt;-->
-        <!--<v-card dark>-->
-          <!--<v-card-title class="headline">Compressing</v-card-title>-->
-          <!--<v-card-text>This should take less than a minute</v-card-text>-->
-          <!--<v-container>-->
-            <!--<v-layout row wrap center>-->
-              <!--<v-flex xs2 offset-xs5>-->
-                <!--<v-progress-circular indeterminate v-bind:size="50" color="amber"></v-progress-circular>-->
-              <!--</v-flex>-->
-            <!--</v-layout>-->
-          <!--</v-container>-->
-        <!--</v-card>-->
-      <!--</v-dialog>-->
     </v-layout><br>
   </v-container>
 </template>
 
 <script>
-//  importing Image Library
-//  import ImageCompressor from '@xkeshi/image-compressor';
-
-
-//  Changing Text Fields Color
-//const validator = (value, args){
-//    if (value > 0){
-//        return green;
-//    }
-//}
-
-
 export default {
   data () {
     return {
@@ -249,7 +219,6 @@ export default {
       competitorFrozenList: [
         'Star', 'Fresh & Freeze', 'Other'
       ],
-//      App
 //      baMode: false,
       currentTime: 0,
       baNames: null,
@@ -417,8 +386,8 @@ export default {
         { name: ' Broccoli & Vegetable Mix Bundle Pack', id:'1131', category: 'Frozen - Vegetables' },
 
       ],
+      selectedProduct: {},
 //      Purchased
-      selectedProduct: null,
       purchasedProducts: [],
     }
   },
@@ -434,6 +403,9 @@ export default {
     },
     appInfo(){
       return this.$store.getters.appinfo;
+    },
+    storeDetail() {
+      return this.$store.getters.storeDetail
     }
   },
   methods:{
@@ -521,58 +493,43 @@ export default {
     onSubmitDetails(){
 
 //      Removing Zeroes
-      let soyaSupremeStock = this.soyaSupremeStock;
+      let purchasedProducts = this.purchasedProducts;
       let filtered = {};
-      for (let key in soyaSupremeStock){
-          if (soyaSupremeStock[key] == '' || soyaSupremeStock[key] == null){
+      for (let key in purchasedProducts){
+          if (purchasedProducts[key] == '' || purchasedProducts[key] == null){
               filtered[key] = 0
           } else {
-              filtered[key] = soyaSupremeStock[key]
+              filtered[key] = purchasedProducts[key]
           }
       }
-      console.log(soyaSupremeStock);
+      console.log(purchasedProducts);
       console.log(filtered)
 //    making an object for payload
       const report = {
-        storename: this.store.name,
-        storeid: this.store.id,
-        storeAddress: this.store.address,
+        storename: this.storeDetail[0].name,
+        storeid: this.storeDetail[0].id,
+        storeAddress: this.storeDetail[0].address,
+        pUButter: this.competitorButter,
+        pUCheese: this.competitorCheese,
+        pUFrozen: this.competitorFrozen,
+        customerGift: this.customerGift,
+        tasteTrial: this.customerTasteTrial,
+        conversion: this.customerConversion,
         purchased: filtered,
         customerContact: this.customerContactNumber,
         customerName: this.customerName,
         date: this.currentDate,
       };
       this.$store.dispatch('pushStoreReport', report).then(response => {
+//        Reseting all Data
           setTimeout(() => {
-            this.soyaSupremeStock = {
-                sscbottle1ltr: null,
-                sscbottle3ltr: null,
-                sscbottle5ltr: null,
-                sscpoly1_5ltr: null,
-                ssctin2_5ltr: null,
-                ssctin5ltr: null,
-                ssctin10ltr: null,
-                sscpresspour3ltr: null,
-                sscpresspour5ltr: null,
-                sscjcan10ltr: null,
-                sscjcan16ltr: null,
-//      smart canola oil
-                scbottle1ltr: null,
-                scbottle3ltr: null,
-                scbottle4_5ltr: null,
-                scpoly1_5ltr: null,
-                sctin2_5ltr: null,
-                scjcan10ltr: null,
-                scjcan16ltr: null,
-//      soya supreme banaspati
-                ssbpoly1_5ltr: null,
-                ssbtin25ltr: null,
-                ssbtin5ltr: null,
-//      soya supreme banaspati with Olive Oil
-                ssbopoly1_5ltr: null,
-                ssbotin5ltr: null,
-                ssbotin25ltr: null,
-            };
+            this.purchasedProducts = [];
+            this.competitorButter = null;
+            this.competitorCheese = null;
+            this.competitorFrozen = null;
+            this.customerConversion = null;
+            this.customerTasteTrial = null;
+            this.customerGift = null;
             this.customerName = null;
             this.customerContactNumber =  null;
           },1000)
@@ -599,24 +556,27 @@ export default {
 //        return obj[key].name
 //      })
 
-      this.baNames = this.userInfo.name;
+      this.baNames = this.userInfo.name + ' ' + this.userInfo.lastName;
       this.$http.get('https://api.timezonedb.com/v2/list-time-zone?key=QNVJJL9QLWE4&format=json&country=PK').then(response => {
         let date = new Date((response.body.zones[0].timestamp * 1000) - response.body.zones[0].gmtOffset * 1000);
         let hours = date.getHours();
+        let year = 1900 + date.getYear();
+        console.log(year);
         let day = ("0" + date.getDate()).slice(-2);
         let month = date.getMonth() + 1;
         let minutes = "0" + date.getMinutes();
-        this.currentDate = month + '-' + day;
+        this.currentDate = month + '-' + day + '-' + year;
         this.currentTime = hours + ':' + minutes.substr(-2)
         //    generating Variable
         this.visits[this.currentDate] = 'done';
       }).catch(() => {
           let date = new Date();
           let hours = date.getHours();
+          let year = 1900 + date.getYear();
           let day = ("0" + date.getDate()).slice(-2);
           let month = date.getMonth() + 1;
           let minutes = "0" + date.getMinutes();
-          this.currentDate = month + '-' + day;
+          this.currentDate = month + '-' + day + '-' + year;
           this.currentTime = hours + ':' + minutes.substr(-2)
           //    generating Variable
           this.visits[this.currentDate] = 'done';
