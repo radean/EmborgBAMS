@@ -92,24 +92,10 @@ export default {
     },
   },
   watch: {
+//    On User Infomation Verify
     userInfo (value){
       if (value !== null && value !== undefined) {
-        this.$router.push('/storelist');
-//        switch (this.userInfo.role) {
-//          case "Supervisor":
-//            this.$router.push('/shoplist');
-//            break;
-//
-//          case "BrandAmbassador":
-//              let storeData = {
-//                storeid: this.userInfo.storeId,
-//                storeName: this.userInfo.name,
-//                storeLocation: this.userInfo.address
-//              };
-//              this.$store.dispatch('setStoreId', storeData);
-//            this.$router.push('/shopdetailba');
-//            break;
-//        }
+        this.$router.push('/storeDetail');
       } else {
         this.$router.push('/');
       }

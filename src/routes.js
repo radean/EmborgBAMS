@@ -1,7 +1,7 @@
 import Login from './components/Auth/Login.vue';
 import Registration from './components/Auth/Registration.vue'
 import StoreList from './components/AppMain/StoreList.vue'
-import StoreDetail from './components/AppMain/StoreDetail.vue'
+import StoreDetail from './components/AppMain/StoreData.vue'
 // import ShopDetailBA from './components/AppMain/ShopDetailBA.vue'
 
 export const routes = [

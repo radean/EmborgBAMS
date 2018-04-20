@@ -233,12 +233,13 @@ export const store = new Vuex.Store({
       });
     },
     // user information update
-    subUserInfo({commit, getters}){
+    subUserInfo({dispatch, commit, getters}){
       // Setting Loading
       commit('SET_MAIN_LOADING', true);
       // setting user information
       firebase.database().ref('users').orderByChild('uniqueId').equalTo(getters.user.uid).once('value', (user) => {
         let userinfo = {};
+        // let storeData = {};
         const obj = user.val();
         for (let key in obj) {
           userinfo = {
@@ -252,6 +253,12 @@ export const store = new Vuex.Store({
             dateofBirth: obj[key].dateofBirth
             // role: obj[key].role
           };
+          // storeData = {
+          //   storeid: this.storeList.id,
+          //   storeName: this.storeList.name,
+          //   storeAddress: this.storeList.address
+          // }
+
         }
         commit('setUserInfo', userinfo);
 
@@ -268,6 +275,7 @@ export const store = new Vuex.Store({
         //   // and color to Red
         //   commit('setTheme', 'red accent-4');
         // }
+        dispatch('setStoreId');
         commit('SET_MAIN_LOADING', false);
       });
     },
@@ -332,14 +340,25 @@ export const store = new Vuex.Store({
     },
 
     // setting Store ID
-    setStoreId({dispatch ,commit}, payload){
+    setStoreId({dispatch , commit, getters}, payload){
       // Getting Assigned BA
       // dispatch('baListUPD');
-      let sel_store_id = payload.storeid;
-      let storeData = {
-        name: payload.storeName,
-        location: payload.storeLocation
-      }
+      console.log("Inside SetStore");
+      // let sel_store_id = payload.storeid;
+      let sel_store_id = getters.userInfo.store;
+      let storeData = {};
+      // Fetching Data from Firebase
+      firebase.database().ref('store').orderByKey().equalTo(sel_store_id.toString()).once('value', (store) => {
+        let storeData = {};
+        const obj = store.val();
+        for (let key in obj) {
+          storeData = {
+            storeName: obj[key].name,
+            storeAddress: obj[key].address,
+            // shift: obj[key].shift,
+          }
+        }
+      });
       // setting App Header
       commit('setAppHeader', storeData);
       commit('SET_SEL_STORE_ID', sel_store_id)
