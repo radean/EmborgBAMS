@@ -95,21 +95,21 @@
         <!--=====================================-->
         <!--Adding Search Objects-->
         <div class="title alphaPanel" >Purchase</div>
+        <div class="caption alphaPanel" >Add product From Drop Down Selector.</div>
         <v-layout row wrap class="alphaPanel pa-0">
-          <!--  BUTTER  -->
+          <!--  Purchased Items  -->
           <v-flex xs12>
             <v-select
+              tabindex="6"
               :items="skusEmborg"
               v-model="selectedProduct"
               label="Emborg Products"
-              single-line
               item-text="name"
               item-value="name"
-              cache-items
               return-object
               @input="onSelectProduct"
-              :hint="`${purchasedProducts.name}, ${purchasedProducts.category}`"
               persistent-hint
+              hint="Tap once to add Product"
               autocomplete
             ></v-select>
           </v-flex>
@@ -118,277 +118,75 @@
         <!--=====================================-->
         <v-divider></v-divider>
         <!--=====================================-->
-        <div class="title alphaPanel pb-0" >POLY</div>
+        <!--Adding Search Objects-->
+        <div class="caption alphaPanel" >Add Quantity of Each Item.</div>
         <v-layout row wrap class="alphaPanel pa-0">
-          <v-flex xs6 text-xs-center >
+          <!--  Purchased Items  -->
+          <v-flex xs12>
             <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('sscpoly1_5ltr')"
-              :class="soyaSupremeStock.sscpoly1_5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="sscpoly1_5ltr"
-              label="1x5 Ltr"
-              v-model="soyaSupremeStock.sscpoly1_5ltr"
-              tabindex="6"
-              placeholder="0"
+              v-for="(item, index) in purchasedProducts"
+              box
+              label='{purchasedProducts.name}'
+              v-model="purchaseQuantity"
               type="number"
+              persistent-hint
             ></v-text-field>
           </v-flex>
-        </v-layout>
 
-        <div class="title alphaPanel pb-0" >Press & Pour</div>
-        <v-layout row wrap class="alphaPanel pa-0">
-          <!--5 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('sscpresspour3ltr')"
-              :class="soyaSupremeStock.sscpresspour3ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="piece"
-              name="sscpresspour3ltr"
-              label="3 Ltr"
-              v-model="soyaSupremeStock.sscpresspour3ltr"
-              tabindex="7"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--10 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('sscpresspour5ltr')"
-              :class="soyaSupremeStock.sscpresspour5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="piece"
-              name="sscpresspour5ltr"
-              label="5 Ltr"
-              v-model="soyaSupremeStock.sscpresspour5ltr"
-              tabindex="8"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-
-        <div class="title alphaPanel pb-0" >TIN</div>
-        <v-layout row wrap class="alphaPanel  pa-0">
-          <!--2.5 Ltr-->
-          <v-flex xs3>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('ssctin2_5ltr')"
-              :class="soyaSupremeStock.ssctin2_5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="ssctin2_5ltr"
-              label="2.5 Ltr"
-              v-model="soyaSupremeStock.ssctin2_5ltr"
-              tabindex="9"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--5 Ltr-->
-          <v-flex xs4>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('ssctin5ltr')"
-              :class="soyaSupremeStock.ssctin5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="ssctin5ltr"
-              label="5 Ltr"
-              v-model="soyaSupremeStock.ssctin5ltr"
-              tabindex="10"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--10 Ltr-->
-          <v-flex xs3>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('ssctin10ltr')"
-              :class="soyaSupremeStock.ssctin10ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="ssctin10ltr"
-              label="10 Ltr"
-              v-model="soyaSupremeStock.ssctin10ltr"
-              tabindex="11"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-
-        <div class="title alphaPanel pb-0" >J.CAN</div>
-        <v-layout row wrap class="alphaPanel  pa-0">
-          <!--10 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('sscjcan10ltr')"
-              :class="soyaSupremeStock.sscjcan10ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="sscjcan10ltr"
-              label="10 Ltr"
-              v-model="soyaSupremeStock.sscjcan10ltr"
-              tabindex="12"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--16 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('sscjcan16ltr')"
-              :class="soyaSupremeStock.sscjcan16ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="sscjcan16ltr"
-              label="16 Ltr"
-              v-model="soyaSupremeStock.sscjcan16ltr"
-              tabindex="13"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-
-
-        <!--=====================================-->
-
-
-
-        <!--Smart Canola Oil-->
-        <v-flex xs12 text-xs-center >
-          <div class="title">Smart Canola Oil</div>
-        </v-flex>
-
-        <div class="title marginFields" >BOTTLE</div>
-        <v-layout row wrap class="marginFields pb-0">
-          <!--1 Ltr-->
-          <v-flex xs3>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scbottle1ltr')"
-              :class="soyaSupremeStock.scbottle1ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="scbottle1ltr"
-              label="1Ltr"
-              v-model="soyaSupremeStock.scbottle1ltr"
-              tabindex="14"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--3 Ltr-->
-          <v-flex xs3>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scbottle3ltr')"
-              :class="soyaSupremeStock.scbottle3ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="scbottle3ltr"
-              label="3 Ltr"
-              v-model="soyaSupremeStock.scbottle3ltr"
-              tabindex="15"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs3>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scbottle4_5ltr')"
-              :class="soyaSupremeStock.scbottle4_5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="scbottle4_5ltr"
-              label="4.5 Ltr"
-              v-model="soyaSupremeStock.scbottle4_5ltr"
-              tabindex="16"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-
-        <div class="title marginFields" >POLY</div>
-        <v-layout row wrap class="marginFields pb-0">
-          <v-flex xs6 text-xs-center >
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scpoly1_5ltr')"
-              :class="soyaSupremeStock.scpoly1_5ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-
-              suffix="pc"
-              name="scpoly1_5ltr"
-              label="1x5 Ltr"
-              v-model="soyaSupremeStock.scpoly1_5ltr"
-              tabindex="17"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-        </v-layout>
-
-        <div class="title marginFields" >J.CAN</div>
-        <v-layout row wrap class="marginFields pb-0" >
-          <!--10 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scjcan10ltr')"
-              :class="soyaSupremeStock.scjcan10ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-              suffix="pc"
-              name="scjcan10ltr"
-              label="10 Ltr"
-              v-model="soyaSupremeStock.scjcan10ltr"
-              tabindex="18"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
-          <!--16 Ltr-->
-          <v-flex xs5>
-            <v-text-field
-              v-validate="'min_value:0|max_value:1000'"
-              :error="errors.has('scjcan16ltr')"
-              :class="soyaSupremeStock.scjcan16ltr > 0 ? 'input-group--focused' : 'transparent'"
-              :hide-details="true"
-              suffix="pc"
-              name="scjcan16ltr"
-              label="16 Ltr"
-              v-model="soyaSupremeStock.scjcan16ltr"
-              tabindex="19"
-              placeholder="0"
-              type="number"
-            ></v-text-field>
-          </v-flex>
         </v-layout>
         <!--=====================================-->
+        <v-divider></v-divider>
+        <!--=====================================-->
+        <!--Radio Fields-->
+        <v-layout row wrap class="alphaPanel pa-0">
+          <!--  Conversion  -->
+          <v-flex xs12>
+            <div class="title alphaPanel" >Customer Conversion</div>
+            <v-radio-group v-model="customerConversion">
+              <v-radio
+                key="1"
+                label="Yes"
+                value="Yes"
+              ></v-radio>
+              <v-radio
+                key="2"
+                label="No"
+                value="No"
+              ></v-radio>
+            </v-radio-group>
+            <!--  Taste Trial  -->
+            <div class="title alphaPanel" >Customer Taste Trail</div>
+            <v-radio-group v-model="customerTasteTrial">
+              <v-radio
+                key="1"
+                label="Yes"
+                value="Yes"
+              ></v-radio>
+              <v-radio
+                key="2"
+                label="No"
+                value="No"
+              ></v-radio>
+            </v-radio-group>
+            <!--  Gifts  -->
+            <div class="title alphaPanel" >Gift</div>
+            <v-radio-group v-model="customerGift">
+              <v-radio
+                key="1"
+                label="Yes"
+                value="Yes"
+              ></v-radio>
+              <v-radio
+                key="2"
+                label="No"
+                value="No"
+              ></v-radio>
+            </v-radio-group>
+          </v-flex>
+          <!--=====================================-->
+          <v-divider></v-divider>
+          <!--=====================================-->
+        </v-layout>
 
         <v-flex xs12 text-xs-center class="mb-4">
           <!--<v-btn raised large color="black" dark to="/shoplist"><v-icon>chevron_left</v-icon> BACK </v-btn>-->
@@ -450,6 +248,10 @@ export default {
 //      Basic Info
       customerName: null,
       customerContactNumber: null,
+      customerConversion: null,
+      customerTasteTrial: null,
+      customerGift: null,
+      purchaseQuantity: null,
 //      Previous user
       competitorButter: null,
       competitorCheese: null,
@@ -471,42 +273,145 @@ export default {
         { name: 'Vintage Cheddar Cheese 200gm', category: 'Dairy - Block Cheese' },
         { name: 'Gouda Wheel 4.5kg', category: 'Dairy - Block Cheese' },
         { name: 'Cheddar Cheese White 4.850kg', category: 'Dairy - Block Cheese' },
-//        Butter
+        //        Butter
+        { name: ' Butter Unsalted 500gm', category: 'Dairy - Butter' },
+        { name: ' Butter Unsalted 200gm', category: 'Dairy - Butter' },
+        { name: ' Butter Unsalted 100gm', category: 'Dairy - Butter' },
+        { name: ' Spreadable Butter 250gm', category: 'Dairy - Butter' },
+        { name: ' Butter Salted Portion', category: 'Dairy - Butter' },
+        { name: ' Butter Unsalted Portion', category: 'Dairy - Butter' },
+        { name: ' Butter Unsalted 400gm', category: 'Dairy - Butter' },
+        { name: ' Butter Unsalted 9x8gm', category: 'Dairy - Butter' },
+        //        Cheese
+        { name: ' Mild Color Cheese 200gm', category: 'Dairy - Cheese' },
+        { name: ' Havarti Slices Cheese 150gm', category: 'Dairy - Cheese' },
+        { name: ' Camembert Moulded Cheese 125gm', category: 'Dairy - Cheese' },
+        { name: ' Brie Plastic Cup 125gm', category: 'Dairy - Cheese' },
+        { name: ' Danablu 100gm', category: 'Dairy - Cheese' },
+        { name: ' Cottage Cheese 500gm Tub', category: 'Dairy - Cheese' },
+        { name: ' Edam Slice 8`S 150gm', category: 'Dairy - Cheese' },
+        { name: ' Feta Chesse In Brine 200gm', category: 'Dairy - Cheese' },
+        { name: ' Havarti Cheese 200gm', category: 'Dairy - Cheese' },
+        { name: ' Feta In Oil With Herbs & Olives 300gm', category: 'Dairy - Cheese' },
+        { name: ' Feta In Oil With Herbs & Spices 300gm', category: 'Dairy - Cheese' },
+        { name: ' Feta Sliceable Cheese 200gm', category: 'Dairy - Cheese' },
+        { name: ' Edam 230gm', category: 'Dairy - Cheese' },
+        { name: ' Swiss Slices Emmental Cheese 200gm', category: 'Dairy - Cheese' },
+        { name: ' Cheddar Cubes 150gm', category: 'Dairy - Cheese' },
+        { name: ' Cheddar Slices 10x10 150gm', category: 'Dairy - Cheese' },
+        { name: ' Emmentaler Cheese Sliced 150gm', category: 'Dairy - Cheese' },
+        { name: ' Gouda Cubes 150gm', category: 'Dairy - Cheese' },
+        { name: ' Gouda Slice 150gm', category: 'Dairy - Cheese' },
+        //        Cream
+        { name: ' Whipped Cream 250gm', category: 'Dairy - Cream' },
+        { name: ' Whipped Cream Uht 200gm', category: 'Dairy - Cream' },
+        { name: ' Cooking Cream 200ml', category: 'Dairy - Cream' },
+        { name: ' Cream Cheese 200gm', category: 'Dairy - Cream' },
+        { name: ' Cream Cheese Light 200gm', category: 'Dairy - Cream' },
+        { name: ' Whipped Cream Uht 1ltr', category: 'Dairy - Cream' },
+        { name: ' Sour Cream 1000gm', category: 'Dairy - Cream' },
+        { name: ' Dessert Whip Cream 200ml', category: 'Dairy - Cream' },
+        { name: ' Pasta Cream 200ml', category: 'Dairy - Cream' },
+        //        Food Service
+        { name: ' Cream Cheese 1.5kg', category: 'Dairy - Cream Food Service' },
+        //        Milk
+        { name: ' Full Cream Milk 1ltr', category: 'Dairy - Milk' },
+        { name: ' Low Fat Milk 1ltr', category: 'Dairy - Milk' },
+        { name: ' Skimmed Milk 1ltr', category: 'Dairy - Milk' },
+        //       Process Cheese
+        { name: ' American Cheddar Slice 10`S 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Butter Salted 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Italian Mozzarella Slice 10`S 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Mild White Cheese 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Sandwich Cheese Cheddar Taste 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Sandwich Cheese Cheddar Taste 400gm', category: 'Dairy - Process Cheese' },
+        { name: ' 8 Portions Cheese Bites 140gm', category: 'Dairy - Process Cheese' },
+        { name: ' Cheddar Slices 84slices 1.033Kg', category: 'Dairy - Process Cheese' },
+        { name: ' Dutch Slices Gouda Cheese 200gm', category: 'Dairy - Process Cheese' },
+        { name: ' Sandwich Cheese Cheddar Taste 100gm', category: 'Dairy - Process Cheese' },
+        { name: ' Cheese Snack 5`s 100gm', category: 'Dairy - Process Cheese' },
+        { name: ' Sandwich 200gm X 2 Kinder Joy Bundle Pack', category: 'Dairy - Process Cheese' },
+        //        Shakes
+        { name: ' Protien Smoothie Orange & Mango 250ml', category: 'Dairy - Shakes' },
+        { name: ' Protien Smoothie Pineapple & Coconut 250ml', category: 'Dairy - Shakes' },
+        { name: ' Protien Smoothie Rasberry & Blueberry 250ml', category: 'Dairy - Shakes' },
+        //        Shredded Cheese
+        { name: ' Cheddar Shredded Cheese 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Mozzarella Shredded Cheese 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Pasta Shredded Cheese 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Pizza Topping Shredded Cheese 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Cheddar Topping Shredded White 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Emmental Shredded Cheese 200gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' Parmesan Shredded Cheese 150gm', category: 'Dairy - Shredded Cheese' },
+        { name: ' 3 Cheese Bake Shredded 200gm', category: 'Dairy - Shredded Cheese' },
+        //        Fish
+        { name: ' Pangasuis Fillet 1000gm', category: 'Frozen - Fish' },
+        //        French Fries
+        { name: ' French Fries Straight 1kg', category: 'Frozen - Frenchfries' },
+        { name: ' French Fries Crinkle 1000gm', category: 'Frozen - Frenchfries' },
+        { name: ' French Fries Shoestring 1000gm', category: 'Frozen - Frenchfries' },
+        { name: ' French Fries Straight 2.5kg', category: 'Frozen - Frenchfries' },
+        //        Fruits
+        { name: ' Strawberries 450gm', category: 'Frozen - Fruits' },
+        { name: ' Blueberries & Strawberries 400gm', category: 'Frozen - Fruits' },
+        { name: ' Blueberries 400gm', category: 'Frozen - Fruits' },
+        //        Meat
+        { name: ' Chicken Franks 350gm', category: 'Frozen - Meat' },
+        { name: ' Chicken Burgers 200gm 4`s', category: 'Frozen - Meat' },
+        { name: ' Chicken Kabab 280gm 8`s', category: 'Frozen - Meat' },
+        { name: ' Whole Turkey', category: 'Frozen - Meat' },
+        { name: ' Chicken Nuggets 510gm', category: 'Frozen - Meat' },
+        { name: ' Beef Burger Onion 200gm 4`s', category: 'Frozen - Meat' },
+        { name: ' Chicken Burger 1200gm 24`s', category: 'Frozen - Meat' },
+        { name: ' Beef Burger Onion 1200gm 24`s', category: 'Frozen - Meat' },
+        { name: ' Beef Kabab 280gm 8`s', category: 'Frozen - Meat' },
+        { name: ' Beef Burger Onion 1000gm 20`s', category: 'Frozen - Meat' },
+        { name: ' Chicken Burgers 1000gm 20`s', category: 'Frozen - Meat' },
+        //        Sea food
+        { name: ' Surimi Crab Sticks 250gm', category: 'Frozen - Sea Food' },
+        { name: ' Lumpfish Cavier Red 100gm', category: 'Frozen - Sea Food' },
+        { name: ' Lumpfish Cavier Black 100gm', category: 'Frozen - Sea Food' },
+        { name: ' Pepper Mackerel With Pepper 200gm', category: 'Frozen - Sea Food' },
+        //        Vegetable
+        { name: ' 4 Whole Corn On The Cob 950gm', category: 'Frozen - Vegetables' },
+        { name: ' Chopped Spinach 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Malaysian Wokmix 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Mix Vegetable Frozen 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Mix Vegetable Frozen 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Peas & Carrots 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Sliced Mushroom 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Garden Mix 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Garden Peas Frozen 450gm', category: 'Frozen - Vegetables' },
+        { name: ' 3-Floret Mix 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Broccoli Mix 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Onion Rings 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Whole Leaf Spinach 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Broccoli Florets 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Broccoli Mix 750gm', category: 'Frozen - Vegetables' },
+        { name: ' Broad Beans 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Cut Bean 450gm', category: 'Frozen - Vegetables' },
+        { name: ' French Salad Mix 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Garden Peas & Sweet Corn 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Brussels Sprouts 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Peas & Carrots 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Sweet Corn Frozen 450gm', category: 'Frozen - Vegetables' },
+        { name: ' Oriental Mix 750gm', category: 'Frozen - Vegetables' },
+        { name: ' 6 Half Ear Corn On The Cob 700gm', category: 'Frozen - Vegetables' },
+        { name: ' Organic Garden Peas 400gm', category: 'Frozen - Vegetables' },
+        { name: ' Organic Mix Vegetable 400gm', category: 'Frozen - Vegetables' },
+        { name: ' Organic Spinach Chopped 400gm', category: 'Frozen - Vegetables' },
+        { name: ' Organic Sweet Corn 400gm', category: 'Frozen - Vegetables' },
+        { name: ' Sweet Corn Frozen 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Garden Peas Frozen 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Cut Bean 900gm', category: 'Frozen - Vegetables' },
+        { name: ' Calamari Rings 500gm', category: 'Frozen - Vegetables' },
+        { name: ' Broccoli & Vegetable Mix Bundle Pack', category: 'Frozen - Vegetables' },
+        { name: ' Garden Peas & Sweet Corn Bundle Pack', category: 'Frozen - Vegetables' },
 
       ],
 //      Purchased
-      selectedProduct: { name: 'None', category: 'None' },
+      selectedProduct: null,
       purchasedProducts: [],
-//      soya supreme cooking oil
-      soyaSupremeStock: {
-        sscbottle1ltr: null,
-        sscbottle3ltr: null,
-        sscbottle5ltr: null,
-        sscpoly1_5ltr: null,
-        ssctin2_5ltr: null,
-        ssctin5ltr: null,
-        ssctin10ltr: null,
-        sscpresspour3ltr: null,
-        sscpresspour5ltr: null,
-        sscjcan10ltr: null,
-        sscjcan16ltr: null,
-//      smart canola oil
-        scbottle1ltr: null,
-        scbottle3ltr: null,
-        scbottle4_5ltr: null,
-        scpoly1_5ltr: null,
-        sctin2_5ltr: null,
-        scjcan10ltr: null,
-        scjcan16ltr: null,
-//      soya supreme banaspati
-        ssbpoly1_5ltr: null,
-        ssbtin25ltr: null,
-        ssbtin5ltr: null,
-//      soya supreme banaspati with Olive Oil
-        ssbopoly1_5ltr: null,
-        ssbotin5ltr: null,
-        ssbotin25ltr: null,
-      },
     }
   },
   computed: {
@@ -596,6 +501,7 @@ export default {
     onSelectProduct(){
       console.log(this.purchasedProducts);
       this.purchasedProducts.push(this.selectedProduct);
+      this.selectedProduct = {};
       console.log(this.purchasedProducts);
     },
 //    submitting Form Data
