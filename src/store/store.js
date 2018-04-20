@@ -39,35 +39,6 @@ export const store = new Vuex.Store({
       broadcast: true,
       subscription: true
     },
-    // Main Headers
-    dataHeader: {
-      date: 'Date',
-      merchandiserName: 'Merchandiser Name',
-      storeName: 'Store Name',
-      address: 'Address',
-      shopKeeperName: 'Name',
-      contact: 'Contact Number',
-      // Poster
-      posm: {
-        mobile: 'Mobile',
-        poster: 'Poster',
-        banner: 'Banner'
-      },
-      // Other Brand Available
-      otherBrands: {
-
-      },
-      // Competetors
-      competetor:{
-        naurus: 'Naurus',
-        roohAfza: 'Rooh Afza',
-        others: 'Other Brands'
-      },
-      //others
-      other: {
-
-      }
-    },
     // Data Fields
     // Also Change this in Store Detail Enum Page4
     basicInfoFields: [
@@ -285,7 +256,7 @@ export const store = new Vuex.Store({
       firebase.auth().signOut().then(() =>{
         // Setting ApplicationDetails
         let storeData = {
-          name: 'MCS™',
+          name: 'BAMS™',
           location: ''
         };
         // setting App Header

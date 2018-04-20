@@ -12,3 +12,4 @@ export const routes = [
   // { path: '/shopdetailba', name: 'ShopDetailBA', component: ShopDetailBA },
   { path: '*', name: 'HomeLink', component: Login}
 ]
+

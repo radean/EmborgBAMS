@@ -131,7 +131,7 @@ export default {
     background-image: url("assets/BG.jpg"), -webkit-linear-gradient(to top, #4791e0, #2f0046);  /* Chrome 10-25, Safari 5.1-6 */
     background-image: url("assets/BG.jpg"), linear-gradient(to top, #4791e0, #2f0046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-repeat: repeat;
-    -webkit-animation: slide 100s linear infinite;
+    -webkit-animation: slide 50s linear infinite;
     -webkit-animation-iteration-count: 60;
 
   }
@@ -154,6 +154,6 @@ export default {
   }
   @-webkit-keyframes slide {
     from { background-position: 0 0; }
-    to { background-position: -80em 0; }
+    to { background-position: -400px 0; }
   }
 </style>
