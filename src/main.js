@@ -55,13 +55,6 @@ new Vue({
   components: { App },
   created (){
     firebase.initializeApp({
-      // apiKey: "AIzaSyDdHaMOpD8xe1GafzqjJfx-GMJXSIgVS8I",
-      // authDomain: "vdmcontrolsystem.firebaseapp.com",
-      // databaseURL: "https://vdmcontrolsystem.firebaseio.com",
-      // projectId: "vdmcontrolsystem",
-      // storageBucket: "vdmcontrolsystem.appspot.com",
-      // messagingSenderId: "806567363183"
-
       apiKey: "AIzaSyD9xMA6OZnafkhfwmCP17VE-FtiDZ_KIGQ",
       authDomain: "tasttrial.firebaseapp.com",
       databaseURL: "https://tasttrial.firebaseio.com",
