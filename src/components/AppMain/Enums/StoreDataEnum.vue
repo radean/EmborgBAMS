@@ -4,7 +4,7 @@
       <v-flex xs12 text-xs-center >
         <div v-if="!checkConnection" class="caption red ma-0 pa-0 white--text">DISCONNECTED</div>
         <div class="title ma-0 pa-0">{{ appInfo.brandName }}</div>
-        <div class="caption ma-0 pa-0">DC Software</div>
+        <div class="caption ma-0 pa-0">{{ appInfo.fullname }}</div>
       </v-flex>
       <!--Timing of Submittion-->
       <v-flex xs12 text-xs-center >
@@ -114,7 +114,7 @@
         <!--=====================================-->
         <v-divider></v-divider>
         <!--=====================================-->
-        <!--Adding Search Objects-->
+        <!--Editing Added Objects-->
         <div class="caption alphaPanel" >Add Quantity of Each Item.</div>
         <v-layout row wrap class="alphaSolid pa-2">
           <!--  Purchased Items  -->
@@ -133,8 +133,7 @@
                   small
                   fab
                   color="red"
-                  @click="onProductRemove(purchaseIndex)"
-                >
+                  @click="onProductRemove(purchaseIndex)">
                   <v-icon>remove</v-icon>
                 </v-btn>
               </v-flex>
@@ -480,6 +479,7 @@ export default {
 //    On Product Select From List
     onSelectProduct(){
       console.log(this.purchasedProducts);
+      this.selectedProduct['quantity'] = '0';
       this.purchasedProducts.push(this.selectedProduct);
       this.selectedProduct = {};
       console.log(this.purchasedProducts);
@@ -560,7 +560,7 @@ export default {
       this.$http.get('https://api.timezonedb.com/v2/list-time-zone?key=QNVJJL9QLWE4&format=json&country=PK').then(response => {
         let date = new Date((response.body.zones[0].timestamp * 1000) - response.body.zones[0].gmtOffset * 1000);
         let hours = date.getHours();
-        let year = 1900 + date.getYear();
+        let year = (1900 + date.getYear());
         console.log(year);
         let day = ("0" + date.getDate()).slice(-2);
         let month = date.getMonth() + 1;
@@ -568,18 +568,18 @@ export default {
         this.currentDate = month + '-' + day + '-' + year;
         this.currentTime = hours + ':' + minutes.substr(-2)
         //    generating Variable
-        this.visits[this.currentDate] = 'done';
-      }).catch(() => {
+//        this.visits[this.currentDate] = 'done';
+      }).catch((error) => {
           let date = new Date();
           let hours = date.getHours();
-          let year = 1900 + date.getYear();
+          let year = (1900 + date.getYear());
           let day = ("0" + date.getDate()).slice(-2);
           let month = date.getMonth() + 1;
           let minutes = "0" + date.getMinutes();
           this.currentDate = month + '-' + day + '-' + year;
           this.currentTime = hours + ':' + minutes.substr(-2)
           //    generating Variable
-          this.visits[this.currentDate] = 'done';
+//          this.visits[this.currentDate] = 'done';
         });
       this.pageLoading = false;
     }, 1000)
