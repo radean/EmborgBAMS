@@ -509,8 +509,7 @@ export default {
               filtered[key] = purchasedProducts[key]
           }
       }
-      console.log(purchasedProducts);
-      console.log(filtered)
+      console.log('Values sent to Storage');
 //    making an object for payload
       const report = {
         storename: this.storeDetail[0].name,
@@ -536,6 +535,7 @@ export default {
             this.competitorCheese = null;
             this.competitorFrozen = null;
             this.customerConversion = null;
+            this.customerRemarks = null,
             this.customerTasteTrial = null;
             this.customerGift = null;
             this.customerName = null;
