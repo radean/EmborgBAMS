@@ -145,7 +145,7 @@
         <!--Radio Fields-->
         <v-layout row wrap class="alphaPanel pa-0">
           <!--  Conversion  -->
-          <v-flex xs12>
+          <v-flex xs11>
             <div class="title ma-0 pa-0" >Customer Conversion</div>
             <v-radio-group v-model="customerConversion" row class="ma-0 pa-0">
               <v-radio
@@ -187,6 +187,14 @@
                 value="No"
               ></v-radio>
             </v-radio-group>
+            <!--Remarks-->
+            <v-text-field
+              name="remarks"
+              label="Remarks"
+              v-model="customerRemarks"
+              textarea
+              dark
+            ></v-text-field>
           </v-flex>
           <!--=====================================-->
           <v-divider></v-divider>
@@ -229,6 +237,7 @@ export default {
       customerTasteTrial: null,
       customerGift: null,
       purchaseQuantity: null,
+      customerRemarks: null,
 //      Previous user
       competitorButter: null,
       competitorCheese: null,
@@ -477,12 +486,11 @@ export default {
 //    },
 //    Getting files and compressing
 //    On Product Select From List
+//    On product Select via Drop down
     onSelectProduct(){
-      console.log(this.purchasedProducts);
       this.selectedProduct['quantity'] = '0';
       this.purchasedProducts.push(this.selectedProduct);
       this.selectedProduct = {};
-      console.log(this.purchasedProducts);
     },
 //    On Product Remove
     onProductRemove(index){
@@ -491,7 +499,6 @@ export default {
     },
 //    submitting Form Data
     onSubmitDetails(){
-
 //      Removing Zeroes
       let purchasedProducts = this.purchasedProducts;
       let filtered = {};
@@ -518,6 +525,7 @@ export default {
         purchased: filtered,
         customerContact: this.customerContactNumber,
         customerName: this.customerName,
+        customerRemarks: this.customerRemarks,
         date: this.currentDate,
       };
       this.$store.dispatch('pushStoreReport', report).then(response => {
@@ -532,36 +540,18 @@ export default {
             this.customerGift = null;
             this.customerName = null;
             this.customerContactNumber =  null;
-          },1000)
+          },500)
       })
     }
   },
   created () {
-//      Checking user role
-//    switch (this.userInfo.role) {
-//      case "Supervisor":
-//        this.baMode = false;
-//        this.$router.push('/shoplist');
-//        break;
-//
-//      case "BrandAmbassador":
-//        this.baMode = true;
-//        break;
-//    }
 //      setting Informations
     setTimeout(() =>{
-//      BANames Array to Object or ViseVersa
-//      let obj = this.$store.getters.baList;
-//      let convert = Object.keys(obj).map((key) => {
-//        return obj[key].name
-//      })
-
       this.baNames = this.userInfo.name + ' ' + this.userInfo.lastName;
       this.$http.get('https://api.timezonedb.com/v2/list-time-zone?key=QNVJJL9QLWE4&format=json&country=PK').then(response => {
         let date = new Date((response.body.zones[0].timestamp * 1000) - response.body.zones[0].gmtOffset * 1000);
         let hours = date.getHours();
         let year = (1900 + date.getYear());
-        console.log(year);
         let day = ("0" + date.getDate()).slice(-2);
         let month = date.getMonth() + 1;
         let minutes = "0" + date.getMinutes();
@@ -588,7 +578,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
   .alphaTrans {
     background: rgba(255,255,255,0.2);
@@ -615,31 +604,3 @@ export default {
   }
 
 </style>
-
-<!--//        sscbottle1ltr: soyaSupremeStock.sscbottle1ltr,-->
-<!--//        sscbottle3ltr: soyaSupremeStock.,-->
-<!--//        sscbottle5ltr: soyaSupremeStock.,-->
-<!--//        sscpoly1_5ltr: soyaSupremeStock.,-->
-<!--//        ssctin2_5ltr: soyaSupremeStock.,-->
-<!--//        ssctin5ltr: soyaSupremeStock.,-->
-<!--//        ssctin10ltr: soyaSupremeStock.,-->
-<!--//        sscpresspour3ltr: soyaSupremeStock.,-->
-<!--//        sscpresspour5ltr: soyaSupremeStock.,-->
-<!--//        sscjcan10ltr: soyaSupremeStock.,-->
-<!--//        sscjcan16ltr: soyaSupremeStock.,-->
-<!--////      smart canola oil-->
-<!--//        scbottle1ltr: soyaSupremeStock.,-->
-<!--//        scbottle3ltr: soyaSupremeStock.,-->
-<!--//        scbottle4_5ltr: soyaSupremeStock.,-->
-<!--//        scpoly1_5ltr: soyaSupremeStock.,-->
-<!--//        sctin2_5ltr: soyaSupremeStock.,-->
-<!--//        scjcan10ltr: soyaSupremeStock.,-->
-<!--//        scjcan16ltr: soyaSupremeStock.,-->
-<!--////      soya supreme banaspati-->
-<!--//        ssbpoly1_5ltr: soyaSupremeStock.,-->
-<!--//        ssbtin10ltr: soyaSupremeStock.,-->
-<!--//        ssbtin16ltr: soyaSupremeStock.,-->
-<!--////      soya supreme banaspati with Olive Oil-->
-<!--//        ssbopoly1_5ltr: soyaSupremeStock.,-->
-<!--//        ssbotin5ltr: soyaSupremeStock.,-->
-<!--//        ssbotin25ltr: soyaSupremeStock.,-->

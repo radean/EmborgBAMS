@@ -39,24 +39,6 @@ export const store = new Vuex.Store({
       broadcast: true,
       subscription: true
     },
-    // Data Fields
-    // Also Change this in Store Detail Enum Page4
-    basicInfoFields: [
-      {id: 0, tabIndex: 1, title: 'Customer Name' , variable: 'customerName', size: 'xs6', type: 'text'},
-      {id: 1, tabIndex: 2,title: 'Customer Contact', variable: 'customerContact', type: 'text'},
-      {id: 2, tabIndex: 3,title: 'Contact Number', variable: 'contactNumber', type: 'number'},
-    ],
-    stockFields: [
-      {id: 3, tabIndex: 4,title: 'Mobile', variable: 'mobile', type: 'number'},
-      {id: 4, tabIndex: 5,title: 'Poster', variable: 'poster', type: 'number'},
-      {id: 5, tabIndex: 6,title: 'Banner', variable: 'banner', type: 'number'},
-    ],
-    otherFields: [
-      {id: 6, tabIndex: 7,title: 'Naurus', variable: 'naurus', type: 'number'},
-      {id: 7, tabIndex: 8,title: 'Rooh Afza', variable: 'roohAfza', type: 'number'},
-      {id: 7, tabIndex: 9,title: 'Quice', variable: 'quice', type: 'number'},
-      {id: 8, tabIndex: 10,title: 'Other Brands', variable: 'otherBrands', type: 'number'}
-    ],
     // Notification
     notification:{
       title: null,
@@ -105,14 +87,8 @@ export const store = new Vuex.Store({
       state.notification.title = payload.title;
       state.notification.body = payload.body;
     },
-    setMode(state, payload){
-      state.app.mode = payload;
-    },
     setUser (state, payload){
       state.user = payload;
-    },
-    setBaList (state, payload){
-      state.baList = payload;
     },
     setUserInfo (state, payload){
       state.userinfo = payload;
@@ -191,13 +167,11 @@ export const store = new Vuex.Store({
     // User Session Check
     userSession({dispatch, commit}){
       // Checking Firebase user
-      // dispatch('appStatus');
       firebase.auth().onAuthStateChanged(appUser => {
         if(appUser) {
           // setting Authorization
           commit('setUser', appUser);
           dispatch('subUserInfo');
-          // dispatch('appMode');
         }else{
           commit('setUser', null);
         }
@@ -210,7 +184,6 @@ export const store = new Vuex.Store({
       // setting user information
       firebase.database().ref('users').orderByChild('uniqueId').equalTo(getters.user.uid).once('value', (user) => {
         let userinfo = {};
-        // let storeData = {};
         const obj = user.val();
         for (let key in obj) {
           userinfo = {
@@ -223,30 +196,10 @@ export const store = new Vuex.Store({
             shift: obj[key].shift,
             dateAssigned: obj[key].dateAssigned,
             dateofBirth: obj[key].dateofBirth
-            // role: obj[key].role
           };
-          // storeData = {
-          //   storeid: this.storeList.id,
-          //   storeName: this.storeList.name,
-          //   storeAddress: this.storeList.address
-          // }
 
         }
         commit('setUserInfo', userinfo);
-
-        // This is for Changing Colors
-
-        // if(getters.userInfo.role === "Supervisor"){
-        //   // if user is supervisor then set mode to "SuperVisor"
-        //   commit('setMode', 'Supervisor');
-        //   // and color to Blue
-        //   commit('setTheme', 'blue accent-4');
-        // }else if(getters.userInfo.role === "BrandAmbassador"){
-        //   // if user is B.A then set mode to "B.A"
-        //   commit('setMode', 'BrandAmbassador');
-        //   // and color to Red
-        //   commit('setTheme', 'red accent-4');
-        // }
         dispatch('setStoreId');
         commit('SET_MAIN_LOADING', false);
       });
@@ -307,7 +260,7 @@ export const store = new Vuex.Store({
     setStoreId({ commit, getters}){
       // Getting Assigned BA
       // dispatch('baListUPD');
-      console.log("Inside SetStore");
+      console.log("Setted up correctly!");
       // let sel_store_id = payload.storeid;
       let sel_store_id = getters.userInfo.store;
       let storeData = {};
@@ -409,6 +362,7 @@ export const store = new Vuex.Store({
         purchased: payload.purchased,
         customerName: payload.customerName,
         customerContact: payload.customerContact,
+        customerRemarks: payload.customerRemarks,
         pUButter: payload.pUButter,
         pUCheese: payload.pUCheese,
         pUFrozen: payload.pUFrozen,
@@ -416,7 +370,7 @@ export const store = new Vuex.Store({
         tasteTrial: payload.tasteTrial,
         conversion: payload.conversion,
         creatorId: getters.userInfo.uid,
-        userName: getters.userInfo.name,
+        userName: getters.userInfo.name + ' ' + getters.userInfo.lastName,
         store : {
           id: payload.storeid,
           name: payload.storename,
@@ -474,52 +428,8 @@ export const store = new Vuex.Store({
           console.log(error)
         })
     },
-
-
     // Fetching Data
-    // Store Lists
-    // B.A List
-    baListUPD({commit}){
-      // Fetching FB
-      firebase.database().ref('users').orderByChild('role').equalTo("BrandAmbassador").once('value', (ba) => {
-        let baList = {};
-        const obj = ba.val();
-        for (let key in obj) {
-          let baname= obj[key].name;
-          baList[baname] = {
-            uid: obj[key].uniqueId,
-            name: obj[key].name,
-            email: obj[key].email,
-            address: obj[key].address,
-            role: obj[key].role
-          };
-        }
-        // setting Mutations
-        commit('setBaList', baList)
-      })
-    },
     // Store List
-    storeListUPD({commit}, payload){
-      let today = payload;
-      commit('SET_MAIN_LOADING', true);
-      firebase.database().ref('stores')
-        .orderByChild('visits/' + today)
-        .equalTo(null)
-        .on('value', (storelist) => {
-        const stores = [];
-        const obj = storelist.val();
-        for (let key in obj) {
-          stores.push({
-            id: key,
-            name: obj[key].name,
-            address: obj[key].address,
-            visits: obj[key].visits,
-          });
-        }
-        commit('SET_MAIN_LOADING', false);
-        commit('SET_STORES', stores);
-      });
-    },
     // Store Detail
     fetchStoreDetails({commit, getters}){
       firebase.database().ref('stores').orderByKey().equalTo(getters.selStoreId.toString()).once('value', (storedetails) => {
@@ -544,12 +454,6 @@ export const store = new Vuex.Store({
     basicInfoFields (state){
       return state.basicInfoFields
     },
-    stockFields (state){
-      return state.stockFields
-    },
-    otherFields (state){
-      return state.otherFields
-    },
     notification (state){
       return state.notification
     },
@@ -564,9 +468,6 @@ export const store = new Vuex.Store({
     },
     userInfo (state) {
       return state.userinfo
-    },
-    baList (state) {
-      return state.baList
     },
     stores (state) {
       return state.stores
