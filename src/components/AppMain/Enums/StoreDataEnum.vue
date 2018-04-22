@@ -60,7 +60,6 @@
                 :items="competitorButterList"
                 v-model="competitorButter"
                 label="Butter"
-                autocomplete
               ></v-select>
             <!--  MILK  -->
               <v-select
@@ -71,7 +70,6 @@
                 :items="competitorCheeseList"
                 v-model="competitorCheese"
                 label="Cheese"
-                autocomplete
               ></v-select>
             <!--  CHEESE  -->
               <v-select
@@ -82,7 +80,6 @@
                 :items="competitorFrozenList"
                 v-model="competitorFrozen"
                 label="Frozen Vegetable"
-                autocomplete
               ></v-select>
             </v-flex>
         </v-layout>
