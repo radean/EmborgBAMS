@@ -26,7 +26,7 @@ export const store = new Vuex.Store({
       company : 'Vision Direct Marketing',
       brandName: 'Emborg™ Pakistan',
       brandSlogan: "Since 1947 ",
-      version : 'v.0.189 build 3',
+      version : 'v.0.206 build 6',
       theme: 'grey darken-3',
       connection: true,
       header:{

@@ -488,6 +488,7 @@ export default {
       this.selectedProduct['quantity'] = '0';
       this.purchasedProducts.push(this.selectedProduct);
       this.selectedProduct = {};
+//      console.log(productConvert)
     },
 //    On Product Remove
     onProductRemove(index){
@@ -496,8 +497,15 @@ export default {
     },
 //    submitting Form Data
     onSubmitDetails(){
+//      Sanitizing Area
+      let products = this.purchasedProducts;
+      let productConvert = [];
+      for (let i = 0, len = products.length; i < len; i++) {
+        let product = products[i];
+          productConvert[product.id] = product.quantity;
+        }
 //      Removing Zeroes
-      let purchasedProducts = this.purchasedProducts;
+      let purchasedProducts = productConvert;
       let filtered = {};
       for (let key in purchasedProducts){
           if (purchasedProducts[key] == '' || purchasedProducts[key] == null){
@@ -506,6 +514,7 @@ export default {
               filtered[key] = purchasedProducts[key]
           }
       }
+
       console.log('Values sent to Storage');
 //    making an object for payload
       const report = {
