@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid class="mb-2">
     <v-layout row wrap v-if="!pageLoading">
-      <v-flex xs12 text-xs-center >
+      <v-flex xs12 text-xs-center>
         <div v-if="!checkConnection" class="caption red ma-0 pa-0 white--text">DISCONNECTED</div>
         <div class="title ma-0 pa-0">{{ appInfo.brandName }}</div>
         <div class="caption ma-0 pa-0">{{ appInfo.fullname }}</div>

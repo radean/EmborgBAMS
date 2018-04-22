@@ -1,7 +1,7 @@
 {
-  "name": "mcs",
+  "name": "bamsEmborg",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "BAMS is a VDM inhouse Developement Project for BA on-ground Management",
   "author": "radean",
   "private": true,
   "scripts": {
