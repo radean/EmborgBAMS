@@ -3,7 +3,7 @@
     <v-flex xs12 sm6 offset-sm3>
       <app-header></app-header>
 
-      <app-storeDetail-Enum v-for="store in storeDetail" :key="store.id" :store="store"></app-storeDetail-Enum>
+      <app-storeDetail-Enum></app-storeDetail-Enum>
 
     </v-flex>
   </v-layout>
@@ -22,9 +22,9 @@ export default {
   },
 
   computed: {
-      storeDetail(){
-          return this.$store.getters.storeDetail
-      }
+//      storeDetail(){
+//          return this.$store.getters.storeDetail
+//      }
   },
 
   components:{
@@ -36,7 +36,9 @@ export default {
     if (this.$store.getters.user === null){
       this.$router.push('/')
     }
-    this.$store.dispatch('fetchStoreDetails');
+    let header = 'BAMS™ NODE';
+    this.$store.dispatch('appHeader', header);
+//    this.$store.dispatch('fetchStoreDetails');
   }
 }
 </script>

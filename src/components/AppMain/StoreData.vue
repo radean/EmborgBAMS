@@ -38,7 +38,7 @@ export default {
     if (this.$store.getters.user === null){
       this.$router.push('/')
     }
-    this.$store.dispatch('fetchStoreDetails');
+//    this.$store.dispatch('fetchStoreDetails');
   }
 }
 </script>

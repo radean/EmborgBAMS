@@ -18,10 +18,11 @@ import { routes } from './routes';
 // using Vuetify
 Vue.use(Vuetify,{
   theme: {
-    primary: '#ffc107',
+    primary: '#00c1ff',
     secondary: '#b0bec5',
   }
 });
+console.log(Vuetify.version)
 Vue.use(VeeValidate);
 // using Vue Resource
 Vue.use(VueResource);
@@ -54,14 +55,42 @@ new Vue({
   template: '<App/>',
   components: { App },
   created (){
-    firebase.initializeApp({
-      apiKey: "AIzaSyD9xMA6OZnafkhfwmCP17VE-FtiDZ_KIGQ",
-      authDomain: "tasttrial.firebaseapp.com",
-      databaseURL: "https://tasttrial.firebaseio.com",
-      projectId: "tasttrial",
-      storageBucket: "tasttrial.appspot.com",
-      messagingSenderId: "328928648457"
-    });
+    let config ={
+      // ================================================
+      // F  I  R  E  S  T  O  R  E
+      // ================================================
+      apiKey: "AIzaSyCKJGwsH2vCHTbBYAIa0kSdG3A_JjYdUzU",
+      authDomain: "bams-vanilla.firebaseapp.com",
+      databaseURL: "https://bams-vanilla.firebaseio.com",
+      projectId: "bams-vanilla",
+      storageBucket: "bams-vanilla.appspot.com",
+      messagingSenderId: "572602321357"
+      // ================================================
+      // F  I  R  E  B  A  S  E
+      // ================================================
+      // apiKey: "AIzaSyD9xMA6OZnafkhfwmCP17VE-FtiDZ_KIGQ",
+      // authDomain: "tasttrial.firebaseapp.com",
+      // databaseURL: "https://tasttrial.firebaseio.com",
+      // projectId: "tasttrial",
+      // storageBucket: "tasttrial.appspot.com",
+      // messagingSenderId: "328928648457"
+    };
+    firebase.initializeApp(config)
+    const firestore = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+    firestore.settings(settings);
+    firebase.firestore().enablePersistence()
+      .catch(function(err) {
+        if (err.code == 'failed-precondition') {
+          // Multiple tabs open, persistence can only be enabled
+          // in one tab at a a time.
+          // ...
+        } else if (err.code == 'unimplemented') {
+          // The current browser does not support all of the
+          // features required to enable persistence
+          // ...
+        }
+      });
   }
 })
 

@@ -1,12 +1,27 @@
 <template>
   <v-app dark>
-    <v-layout>
+    <v-layout v-bind:style="styled">
       <v-content transition="fade-transition">
         <!--<v-fade-transition>-->
         <router-view></router-view>
         <!--</v-fade-transition>-->
       </v-content>
     </v-layout>
+    <!--Percentage Loading Dialog-->
+    <v-dialog v-model="appPercentageLoadingStats.isLoading" width="400" persistent >
+      <!--<v-btn color="primary" dark slot="activator">Open Dialog</v-btn>-->
+      <v-card>
+        <v-card-title class="headline">Hold tight, Fetching Please Wait...  </v-card-title>
+        <v-card-text>BAMS™ is fetching Meta Information, If something went wrong or the process took so long. please notify us.</v-card-text>
+        <v-container>
+          <v-layout row wrap center>
+            <v-flex >
+              <v-progress-linear v-model="appPercentageLoadingStats.percentage"></v-progress-linear>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-card>
+    </v-dialog>
     <v-footer class="pa-3" dark>
       <div>{{ appdata.name }} {{appdata.version}}</div>
       <v-spacer></v-spacer>
@@ -31,6 +46,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
     </v-footer>
   </v-app>
 </template>
@@ -48,6 +64,13 @@ export default {
   data() {
       return {
         selectedComponent: 'app-shoplist',
+
+//        BG Image
+        bgImgLink: '',
+        styled: {
+          background: '#222222',
+          animation: 'slide 50s linear infinite'
+        },
 //        Notification
         notificationUI: false,
         notiTitle: '',
@@ -59,6 +82,7 @@ export default {
       }
   },
   computed: {
+//    App Information
     appdata () {
       return this.$store.getters.appinfo;
     },
@@ -67,6 +91,9 @@ export default {
     },
     user(){
       return this.$store.getters.user
+    },
+    appPercentageLoadingStats(){
+      return this.$store.getters.percentageLoading
     },
     onNotification(){
       let noti = this.$store.getters.notification;
@@ -102,10 +129,24 @@ export default {
     },
   },
   created(){
+//      Fetching Information
+    this.$store.dispatch('fetchAppInformation').then(() => {
+      setTimeout(() => {
+        //      getting link from Store
+        let bgImageLink = this.$store.getters.nodeMeta;
+
+//      Setting local Variable the link of Image
+        let link = "url('" + bgImageLink.img + "')"
+        console.log(link)
+        this.styled.background = link
+      }, 6000)
+    })
     let header = 'LOGIN';
     this.$store.dispatch('appHeader', header);
     this.$store.dispatch('connectionRef');
     this.$store.dispatch('userSession');
+//    Setting up Backroung Image
+
 
   },
   components: {
@@ -125,20 +166,33 @@ export default {
   body {
     font-family: 'Marvel', sans-serif;
     /*background: url("../static/img/bg/bg.jpg") left  fixed;*/
-    background: #000428;  /* fallback for old browsers */
-    /*background: -webkit-linear-gradient(to top, #4791e0, #2f0046);  */
-    /*background: linear-gradient(to top, #4791e0, #2f0046); */
-    background-image: url("assets/BG.jpg"), -webkit-linear-gradient(to top, #4791e0, #2f0046);  /* Chrome 10-25, Safari 5.1-6 */
-    background-image: url("assets/BG.jpg"), linear-gradient(to top, #4791e0, #2f0046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background: #000428;  !* fallback for old browsers *!*/
+    /*background: -webkit-linear-gradient(to top, #4791e0, #2f0046);  !* Chrome 10-25, Safari 5.1-6 *!*/
+    /*background: linear-gradient(to top, #4791e0, #2f0046); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
     background-repeat: repeat;
     -webkit-animation: slide 50s linear infinite;
     -webkit-animation-iteration-count: 60;
-
   }
   .gradientDialog{
     background: #000428;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #1CB5E0, #2f0046);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to top, #1CB5E0, #2f0046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  .blueBleed {
+    background: #00ffaa;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #f4f5ff, #f0f0f0);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #f4f5ff, #f0f0f0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 0px 16px 64px 2px rgba(0, 255, 35, 0.47) !important;
+    border-radius: 16px !important;
+    color: #0cff76 !important;
+  }
+  .blueBleed:disabled {
+    background: #7fc9ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #444, #222);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #444, #222); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: 2px 16px 64px 2px rgba(255, 0, 62, 0.25) ;
+    border-radius: 16px ;
+    color: #ff001b ;
   }
   #app {
     background: transparent;

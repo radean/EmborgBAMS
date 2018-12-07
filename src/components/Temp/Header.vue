@@ -93,14 +93,13 @@
       <v-card>
         <v-card-title class="headline">Message to Admin</v-card-title>
         <v-card-text>Type your message Below
-          <v-text-field
+          <v-textarea
             name="msg"
             label="Message"
             v-model="msg"
             maxlength="160"
-            multi-line
             :counter="160"
-          ></v-text-field>
+          ></v-textarea>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

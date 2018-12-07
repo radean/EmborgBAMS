@@ -1,5 +1,5 @@
 {
-  "name": "bamsEmborg",
+  "name": "bams-vanilla",
   "version": "1.0.0",
   "description": "BAMS is a VDM inhouse Developement Project for BA on-ground Management",
   "author": "radean",
@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
+    "serve": "vue-cli-service serve",
     "build": "node build/build.js"
   },
   "dependencies": {
@@ -17,7 +18,8 @@
     "vue": "^2.3.3",
     "vue-resource": "^1.3.4",
     "vue-router": "^3.0.1",
-    "vuetify": "^0.17.1",
+    "vue-server": "^0.8.1",
+    "vuetify": "^1.1.12",
     "vuex": "^3.0.0"
   },
   "devDependencies": {
