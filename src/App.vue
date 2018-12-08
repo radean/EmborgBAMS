@@ -194,6 +194,15 @@ export default {
     border-radius: 16px ;
     color: #ff001b ;
   }
+  .redSmallBleed {
+    background: transparent;  /* fallback for old browsers */
+    box-shadow: 0px 8px 32px 2px rgba(255, 0, 30, 0.4) !important;
+    background: -webkit-linear-gradient(to bottom, #FFF, #EDEDED);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FFF, #EDEDED); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 64px !important;
+    border-color: red !important;
+    color: red !important;
+  }
   #app {
     background: transparent;
   }

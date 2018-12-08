@@ -408,6 +408,12 @@ export const store = new Vuex.Store({
     connectionRef({commit}){
       let connection = firebase.database().ref('/.info/connected');
 
+      // firebase.firestore().disableNetwork()
+      //   .then(function() {
+      //     // Do offline actions
+      //     // ...
+      //   });
+
       connection.on('value', (snap) => {
         if(snap.val() == true){
           commit('setConnectionStat', true)

@@ -46,7 +46,7 @@
         <!--Initialize-->
         <div class="title alphaPanel" >Questions</div>
         <v-layout row wrap class="alphaPanel pa-0">
-          <v-flex xs12 v-for="question in optionalQuestions" :key="question.qvar">
+          <v-flex xs12 v-for="question in optionalQuestions" :key="question.id">
             <!--  BUTTER  -->
             <v-select
               class="ma-0 pa-0"
@@ -136,7 +136,7 @@
                 <v-btn
                   small
                   fab
-                  color="red"
+                  color="redSmallBleed"
                   @click="onProductRemove(purchaseIndex)">
                   <v-icon>remove</v-icon>
                 </v-btn>
@@ -592,14 +592,15 @@ export default {
         date: this.currentDate,
       };
 
-      console.log('From Store in OnSubmit', report)
-      console.log('Values sent to Storage', report);
+//      console.log('From Store in OnSubmit', report)
+//      console.log('Values sent to Storage', report);
       this.$store.dispatch('pushStoreReport', report).then(() => {
 //        Reseting all Data
           setTimeout(() => {
             this.purchasedProducts = [];
-            this.optional = null;
-            this.questions = null;
+            this.selectedProduct = {};
+            this.optional = {};
+            this.questions = {};
             this.customerContactNumber = null;
             this.customerName = null;
             this.customerRemarks = null;
